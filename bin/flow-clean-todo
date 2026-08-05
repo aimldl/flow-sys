@@ -32,9 +32,8 @@ NEXT_FILE="$FLOW_CORE/next.md"
 in_progress=$(grep -E '^\[->\]' "$CORE" 2>/dev/null || true)
 
 if [ -n "$in_progress" ]; then
-    rest=$(sed '/^# next$/d' "$NEXT_FILE" 2>/dev/null | sed '/./,$!d')
+    rest=$(sed '/./,$!d' "$NEXT_FILE" 2>/dev/null)
     {
-        echo "# next"
         printf -- "   %s\n%s\n---\n" "$today_full" "$in_progress"
         [ -n "$rest" ] && printf '%s\n' "$rest"
     } > "$NEXT_FILE.tmp"

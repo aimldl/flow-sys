@@ -26,12 +26,11 @@ if [ -n "$completed" ] && ! grep -q "^   $today" "$TARGET" 2>/dev/null; then
     mv "$TARGET.tmp" "$TARGET"
 fi
 
-# ✅ Rebuild next.md: static header + all non-completed lines, unchanged and unpadded
-# ✅ next.md 재작성: 정적 헤더 + 완료되지 않은 모든 줄 (변경/패딩 없이 그대로 유지)
-kept=$(grep -v -E '^\[(v|x)\]' "$CORE" | sed '/^# next$/d' | sed '/./,$!d')
+# ✅ Rebuild next.md: all non-completed lines, unchanged and unpadded
+# ✅ next.md 재작성: 완료되지 않은 모든 줄 (변경/패딩 없이 그대로 유지)
+kept=$(grep -v -E '^\[(v|x)\]' "$CORE" | sed '/./,$!d')
 
 {
-  echo "# next"
   [ -n "$kept" ] && printf '%s\n' "$kept"
 } > "$CORE"
 

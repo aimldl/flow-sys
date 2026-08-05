@@ -11,12 +11,6 @@ FILE="$FLOW_CORE/memo.md"
 mkdir -p "$(dirname "$FILE")"
 touch "$FILE"
 
-# Add header if file is empty
-# 파일이 비어있으면 헤더 추가
-if [ ! -s "$FILE" ]; then
-  echo "# memo" >> "$FILE"
-fi
-
 # Handle Ctrl+C as cancel instead of abrupt exit
 # Ctrl+C를 취소 동작으로 처리
 trap 'echo ""; echo "❌ canceled"; exit 1' INT
@@ -102,13 +96,12 @@ if grep -q "^   $today" "$FILE"; then
     done < "$FILE"
   ) > "$tmpfile"
 else
-  # New day — prepend date header and new lines after "# memo"
-  # 새 날짜면 # memo 다음에 날짜 헤더와 메모를 추가
+  # New day — prepend date header and new lines to top of file
+  # 새 날짜면 파일 맨 앞에 날짜 헤더와 메모를 추가
   {
-    head -1 "$FILE"
     printf "   %s-%s\n" "$today" "$day"
     cat "$new_lines_file"
-    tail -n +2 "$FILE"
+    cat "$FILE"
   } > "$tmpfile"
 fi
 

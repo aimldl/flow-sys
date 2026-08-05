@@ -169,16 +169,51 @@ if command -v bash >/dev/null 2>&1; then
 fi
 
 # Step 2. Data layer — create
-#   Create ~/my workspace
+#   Create ~/my workspace, cloning the user's private 'my' data repo if one
+#   is configured and reachable. Falls back to an empty ~/my otherwise.
+#   If ~/my already has scaffolding (e.g. from a prior install run) but isn't
+#   a git repo yet, the fetched repo replaces it and the old scaffolding is
+#   moved aside as a backup rather than deleted.
 
 # 단계 2. 데이터 레이어 — 생성
-#   ~/my 작업 공간 생성
+#   ~/my 작업 공간 생성. bin/git-target-repos.cfg에 설정된 개인 'my' 저장소가
+#   있고 접근 가능하면 클론한다. 없으면 빈 ~/my를 생성한다.
+#   ~/my에 이전 설치의 빈 스캐폴딩만 있고 git repo가 아니라면, 클론한 실제
+#   데이터로 교체하고 기존 스캐폴딩은 삭제 대신 백업으로 옮긴다.
 
-if [ ! -d "$HOME/my" ]; then
-    mkdir "$HOME/my"
-    echo "  ✅ [data]  ~/my created"
+if [ -d "$HOME/my/.git" ]; then
+    echo "  •  [data]  ~/my already exists (git repo)"
 else
-    echo "  •  [data]  ~/my already exists"
+    MY_REPO_URL=""
+    source "$HOME/.flow-os/bin/git-target-repos"
+    for entry in "${PRIVATE_REPOS[@]}"; do
+        if [ "${entry%%|*}" = "." ]; then
+            MY_REPO_URL="${entry#*|}"
+            break
+        fi
+    done
+
+    if [ -n "$MY_REPO_URL" ] && GIT_SSH_COMMAND="ssh -o BatchMode=yes -o ConnectTimeout=5" git ls-remote "$MY_REPO_URL" >/dev/null 2>&1; then
+        TMP_CLONE="$(mktemp -d)"
+        if GIT_SSH_COMMAND="ssh -o BatchMode=yes -o ConnectTimeout=5" git clone "$MY_REPO_URL" "$TMP_CLONE" >/dev/null 2>&1; then
+            if [ -d "$HOME/my" ] && [ -n "$(ls -A "$HOME/my" 2>/dev/null)" ]; then
+                BACKUP="$HOME/my.pre-clone-$(date +%Y%m%d%H%M%S)"
+                mv "$HOME/my" "$BACKUP"
+                echo "  •  [data]  existing ~/my backed up to $(basename "$BACKUP")"
+            else
+                rm -rf "$HOME/my"
+            fi
+            mv "$TMP_CLONE" "$HOME/my"
+            echo "  ✅ [data]  ~/my cloned from $MY_REPO_URL"
+        else
+            rm -rf "$TMP_CLONE"
+            mkdir -p "$HOME/my"
+            echo "  ⚠️  [data]  clone failed — ~/my created empty instead"
+        fi
+    else
+        mkdir -p "$HOME/my"
+        echo "  •  [data]  ~/my created (no reachable 'my' repo — starting fresh)"
+    fi
 fi
 
 # Step 3. State layer — create
@@ -208,19 +243,17 @@ done
 echo "  ✅ [intent] purpose dirs ready (${PURPOSE_DIRS[*]})"
 
 # Step 5. State layer — initialize
-#   Create core state files in ~/my/.flow/core
+#   Create core state files in ~/my/.flow
 
 # 단계 5. 상태 레이어 — 초기화
-#   ~/my/.flow/core에 핵심 상태 파일 생성
+#   ~/my/.flow에 핵심 상태 파일 생성
 
-CORE="$HOME/my/.flow/core"
+CORE="$HOME/my/.flow"
 CORE_FILES=(memo.md next.md resume.md todo.md)
-
-mkdir -p "$CORE"
 
 for file in "${CORE_FILES[@]}"; do
     if [ ! -f "$CORE/$file" ]; then
-        echo "# ${file%.md}" > "$CORE/$file"
+        touch "$CORE/$file"
         echo "  ✅ [state] $file created"
     else
         echo "  •  [state] $file already exists"

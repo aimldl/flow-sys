@@ -5,57 +5,57 @@
 # ==================================================
 
 # 🚀 Navigation Layer 
-#     ~/my
-#     ~/my/.flow
 #     ~/.flow-os
+#     ~/my/.flow
+#     ~/my
+#     ~/my/*/
+
+alias flowos='cd ~/.flow-os'
+alias fos='cd ~/.flow-os'
+
+alias flow='cd ~/my/.flow'
+alias f='cd ~/my/.flow'
+alias myflow='cd ~/my/.flow'
+
+alias docs='cd ~/.flow-os/docs'
+alias doc='cd ~/.flow-os/docs'
 
 alias my='cd ~/my'
 
+alias craft='cd ~/my/craft'
+alias myc='cd ~/my/craft'
 alias mycraft='cd ~/my/craft'
 alias my-craft='cd ~/my/craft'
 alias mcraft='cd ~/my/craft'
-alias craft='cd ~/my/craft'
 
+alias forge='cd ~/my/forge'
+alias myf='cd ~/my/forge'
 alias myforge='cd ~/my/forge'
 alias my-forge='cd ~/my/forge'
 alias mforge='cd ~/my/forge'
-alias forge='cd ~/my/forge'
 
+alias quests='cd ~/my/quests'
+alias quest='cd ~/my/quests'
+alias myq='cd ~/my/quests'
 alias myquests='cd ~/my/quests'
 alias myquest='cd ~/my/quests'
 alias my-quests='cd ~/my/quests'
 alias my-quest='cd ~/my/quests'
 alias mquests='cd ~/my/quests'
 alias mquest='cd ~/my/quests'
-alias quests='cd ~/my/quests'
-alias quest='cd ~/my/quests'
 
+alias temp='cd ~/my/temp'
+alias tmp='cd ~/my/temp'
 alias myt='cd ~/my/temp'
 alias mytmp='cd ~/my/temp'
 alias mytemp='cd ~/my/temp'
 alias my-temp='cd ~/my/temp'
-alias temp='cd ~/my/temp'
-alias tmp='cd ~/my/temp'
 
+alias vault='cd ~/my/vault'
+alias myv='cd ~/my/vault'
 alias myvault='cd ~/my/vault'
 alias my-vault='cd ~/my/vault'
 alias mvault='cd ~/my/vault'
-alias vault='cd ~/my/vault'
-
-alias f='cd ~/my/.flow'
-alias flow='cd ~/my/.flow'
-alias myf='cd ~/my/.flow'
-alias myflow='cd ~/my/.flow'
-
-alias myflowhistory='cd ~/my/.flow'
-alias old='cd ~/my/.flow'
-alias myold='cd ~/my/.flow'
-
-alias fos='cd ~/.flow-os'
-alias flowos='cd ~/.flow-os'
-
-alias docs='cd ~/.flow-os/docs'
-alias doc='cd ~/.flow-os/docs'
 
 # 📝 Edit Files Layer
 #     ~/my/.flow
@@ -209,3 +209,11 @@ alias t2='tree -d -L 2'
 
 alias ty='open -a typora'
 alias typora='open -a typora'
+
+# ==================================================
+# 🐍 Python Virtual Environment Layer
+# ==================================================
+
+alias vc='python -m venv .venv'
+alias va='source .venv/bin/activate'
+alias vd='deactivate'

@@ -49,12 +49,12 @@ terminal start → Dashboard → go → work → clean → quit
 ~/
 ├── .flow-os/          # OS layer (this repo)
 └── my/                # Data layer
-    ├── .flow/
-    │   └── core/      # State layer
-    │       ├── resume.md
-    │       ├── todo.md
-    │       ├── memo.md
-    │       └── next.md
+    ├── .flow/         # State layer
+    │   ├── resume.md
+    │   ├── todo.md
+    │   ├── memo.md
+    │   ├── next.md
+    │   └── v-*.md     # Monthly archives (v marks completed state)
     ├── craft/         # Purpose layer
     ├── forge/
     ├── quests/

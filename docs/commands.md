@@ -47,13 +47,17 @@ FLOW_MEMO_VIEW=off | layer | full_path
 
 ## 디렉토리 이동
 
-| 명령어 | 별칭                            | 대상                 |
-| ------ | ------------------------------- | -------------------- |
-| `my`   |                                 | `~/my`               |
-| `temp` | `tmp`, `myt`, `mytmp`, `mytemp` | `~/my/temp`          |
-| `flow` | `f`, `myf`, `myflow`            | `~/my/.flow`         |
-| `old`  | `myold`, `myflowhistory`        | `~/my/.flow`         |
-| `fos`  | `flowos`                        | `~/.flow-os`         |
+| 명령어   | 별칭                                                                            | 대상          |
+| -------- | ------------------------------------------------------------------------------- | ------------- |
+| `fos`    | `flowos`                                                                         | `~/.flow-os`  |
+| `flow`   | `f`, `myflow`                                                                    | `~/my/.flow`  |
+| `docs`   | `doc`                                                                            | `~/.flow-os/docs` |
+| `my`     |                                                                                   | `~/my`        |
+| `craft`  | `myc`, `mycraft`, `my-craft`, `mcraft`                                           | `~/my/craft`  |
+| `forge`  | `myf`, `myforge`, `my-forge`, `mforge`                                           | `~/my/forge`  |
+| `quests` | `quest`, `myq`, `myquests`, `myquest`, `my-quests`, `my-quest`, `mquests`, `mquest` | `~/my/quests` |
+| `temp`   | `tmp`, `myt`, `mytmp`, `mytemp`, `my-temp`                                       | `~/my/temp`   |
+| `vault`  | `myv`, `myvault`, `my-vault`, `mvault`                                           | `~/my/vault`  |
 
 ## Git 자동화
 
@@ -95,3 +99,11 @@ FLOW_MEMO_VIEW=off | layer | full_path
 | `p`                      | 현재 경로 (HOME 축약)                   |
 | `t` / `td` / `t1` / `t2` | `tree` 변형                             |
 | `search`                 | `grep -Rin`                             |
+
+## Python 가상환경
+
+| 명령어 | 별칭 | 설명                              |
+| ------ | ---- | --------------------------------- |
+| `vc`   |      | `python -m venv .venv`            |
+| `va`   |      | `source .venv/bin/activate`       |
+| `vd`   |      | `deactivate`                      |

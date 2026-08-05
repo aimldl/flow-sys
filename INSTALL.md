@@ -150,22 +150,6 @@ $
   - `Are you sure you want to continue connecting (yes/no/[fingerprint])?`라는 메세지가 다시 나온다면,
   - `yes`를 입력하고 엔터를 누르시면 됩니다.
 
-TODO: core 디렉토리의 파일을 flat하게 만들기
-```bash
-my/.flow $ t
-.
-├── core
-│   ├── memo.md
-│   ├── next.md
-│   ├── resume.md
-│   └── todo.md
-├── resume.md
-└── todo.md
-
-2 directories, 6 files
-my/.flow $
-```
-
 ------------------------------
 ## 2. 저장소 클론 (Clone)
 
@@ -379,11 +363,11 @@ my $
 ├── .flow-os/              # OS 레이어 (이 저장소)
 └── my/                    # 데이터 레이어
     ├── .flow/             # 상태 레이어
-    │   └── core/          # 핵심 상태 파일
-    │       ├── memo.md
-    │       ├── next.md
-    │       ├── resume.md
-    │       └── todo.md
+    │   ├── memo.md
+    │   ├── next.md
+    │   ├── resume.md
+    │   ├── todo.md
+    │   └── v-*.md         # 월별 아카이브 (v는 완료 상태를 의미함)
     ├── craft/             # 의도 레이어
     ├── forge/
     ├── quests/
@@ -401,21 +385,20 @@ my $
 ├── .flow-os/      # OS 레이어
 └── my/            # 데이터 레이어
     ├── .flow/     # 상태 레이어
-    │   └── core/  # 상태 파일
     └── (purpose)  # 의도 레이어 (craft, forge, quests, ...)
 ```
 
 아래 순서로 구성합니다.
 
-| 단계 | 레이어 | 작업        | 설정 내용 요약                                                                         |
-| ---- | ------ | ----------- | -------------------------------------------------------------------------------------- |
-| 0    |        | 선택 도구   | Python3, Docker, Jupyter Lab, VS Code가 없으면 설치할지 확인 후 설치                   |
-| 1    | OS     | 연결/활성화 | `~/.zshconfig`, `~/.zshalias` 생성 후 `~/.zshrc`에 로더 추가                           |
-| 2    | 데이터 | 생성        | `~/my` 작업 공간 생성                                                                  |
-| 3    | 상태   | 생성        | `~/my/.flow`  생성                                                                     |
-| 4    | 의도   | 생성        | `craft`, `forge`, `quests`, `temp`, `vault` 생성                                       |
-| 5    | 상태   | 초기화      | `~/my/.flow/core`에 핵심 상태 파일 (`memo.md`, `next.md`, `resume.md`, `todo.md`) 생성 |
-| 6    |        | 실행 환경   | `bin/` 스크립트에 실행 권한 부여                                                       |
+| 단계 | 레이어 | 작업        | 설정 내용 요약                                                                                          |
+| ---- | ------ | ----------- | --------------------------------------------------------------------------------------------------------- |
+| 0    |        | 선택 도구   | Python3, Docker, Jupyter Lab, VS Code가 없으면 설치할지 확인 후 설치                                    |
+| 1    | OS     | 연결/활성화 | `~/.zshconfig`, `~/.zshalias` 생성 후 `~/.zshrc`에 로더 추가                                            |
+| 2    | 데이터 | 생성        | `~/my` 작업 공간 생성. `bin/git-target-repos.cfg`에 등록된 개인 저장소가 있으면 클론, 없으면 빈 디렉토리 생성 |
+| 3    | 상태   | 생성        | `~/my/.flow`  생성                                                                                       |
+| 4    | 의도   | 생성        | `craft`, `forge`, `quests`, `temp`, `vault` 생성                                                        |
+| 5    | 상태   | 초기화      | `~/my/.flow`에 핵심 상태 파일 (`memo.md`, `next.md`, `resume.md`, `todo.md`) 생성 (2단계에서 클론됐다면 건너뜀) |
+| 6    |        | 실행 환경   | `bin/` 스크립트에 실행 권한 부여                                                                         |
 
 **🧠 왜 이런 순서를 따르는가?**
 

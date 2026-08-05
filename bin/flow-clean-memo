@@ -21,9 +21,9 @@ if grep -q "^   $today" "$TARGET" 2>/dev/null; then
     exit 0
 fi
 
-# Extract content: strip leading '# memo' header and leading blank lines
-# 내용 추출: '# memo' 헤더 및 앞 빈줄 제거
-content=$(sed '/^# memo$/d' "$CORE" | sed '/./,$!d')
+# Extract content: strip leading blank lines
+# 내용 추출: 앞 빈줄 제거
+content=$(sed '/./,$!d' "$CORE")
 
 # Prepend entry to monthly archive (latest date on top)
 # 월별 아카이브 앞에 추가 (최신 날짜가 위)
@@ -35,6 +35,6 @@ mv "$TARGET.tmp" "$TARGET"
 
 # Reset core memo.md
 # CORE memo.md 초기화
-echo "# memo" > "$CORE"
+: > "$CORE"
 
 echo "✅ memo archived to $(flow_pretty_path "$TARGET")"

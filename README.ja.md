@@ -47,12 +47,12 @@ Flow OSは `~/.flow-os` に配置されるシェル設定レイヤーです。�
 ~/
 ├── .flow-os/          # OSレイヤー（このリポジトリ）
 └── my/                # データレイヤー
-    ├── .flow/
-    │   └── core/      # 状態レイヤー
-    │       ├── resume.md
-    │       ├── todo.md
-    │       ├── memo.md
-    │       └── next.md
+    ├── .flow/         # 状態レイヤー
+    │   ├── resume.md
+    │   ├── todo.md
+    │   ├── memo.md
+    │   ├── next.md
+    │   └── v-*.md     # 月次アーカイブ（vは完了状態を意味する）
     ├── craft/         # 意図レイヤー
     ├── forge/
     ├── quests/
